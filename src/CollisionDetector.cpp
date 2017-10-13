@@ -12,5 +12,5 @@ void CollisionDetector::updateState()
 
 int CollisionDetector::isDetected()
 {
-    return true;
+    return false;
 }

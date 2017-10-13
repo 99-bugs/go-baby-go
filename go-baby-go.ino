@@ -1,4 +1,7 @@
 
+// Comment out the line below to run the code in 'production' mode
+#define DEBUG true
+
 #include "src/Lights.h"
 #include "src/Button.h"
 #include "src/CollisionDetector.h"
@@ -11,20 +14,30 @@ const int TRIGGER = 14;
 const int ECHO_1 = 2;
 const int ECHO_2 = 16;
 const int ECHO_3 = 15;
-const int MOTOR = 13;
+const int MOTOR = 9;
+const int BUTTON = 11;
 
 Motor motor(MOTOR);
-Button button(STEER_LEFT, STEER_RIGHT);
+Button button(BUTTON, STEER_RIGHT);
 CollisionDetector collision(TRIGGER, ECHO_1, ECHO_2, ECHO_3);
 Lights lights(NEOPIXEL);
 
 void setup() {
   lights.showHeadLights();
+  #ifdef DEBUG
+  Serial.begin(115200);
+  Serial.println("--- Start of application ---");
+  #endif
 }
 
 void loop() {
   button.updateState();
   collision.updateState();
+
+  #ifdef DEBUG
+  Serial.print("Button state: ");
+  Serial.println(button.isPressed());
+  #endif
 
   if(button.isPressed() && !collision.isDetected()){
     motor.drive();
@@ -33,6 +46,9 @@ void loop() {
     motor.stop();
     lights.showBreakLights();
   }
+  #ifdef DEBUG
+  delay(500);
+  #endif
 }
 
 
