@@ -1,17 +1,14 @@
 #pragma once
 
-#include <Arduino.h>
-
 class Button{
+private:
+    bool leftPressed, rightPressed;
+    int pinLeft, pinRight;
+
 public:
     Button(int pin_left, int pin_right);
 
     void updateState();
-    int isPressed();
-    int isReleased();
-
-private:
-    int pin_left;
-    int pin_right;
-    int button_state;
+    bool isPressed();
+    bool isReleased();
 };

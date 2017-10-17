@@ -5,6 +5,7 @@ Motor::Motor(int pin)
 {
     this->pin = pin;
     pinMode(this->pin, OUTPUT);
+    stop();
 }
 
 void Motor::drive()
