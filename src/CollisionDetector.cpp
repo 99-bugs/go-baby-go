@@ -22,13 +22,16 @@ void CollisionDetector::updateState()
 {
     triggerSensor(trigger);
     long duration = this->pulseIn(echo1, HIGH,50000);
+    long distance = getDistance(duration);
 
     #ifdef DEBUG
       Serial.print("Distance: ");
-      Serial.print(getDistance(duration));
+      Serial.print(distance);
     #endif
 
-    if(getDistance(duration) < SAFE_DISTANCE){
+    if(duration == PULSE_TIMEOUT){
+      detected = false;
+    } else if(distance < SAFE_DISTANCE){
       detected = true;
       timeOutTime = millis();
     } else if(millis() > (timeOutTime + TIME_OUT_DURATION)) {
@@ -79,12 +82,12 @@ unsigned long CollisionDetector::pulseIn(uint8_t pin, uint8_t state, unsigned lo
 	// wait for any previous pulse to end
 	while ((*portInputRegister(port) & bit) == stateMask)
 		if (numloops++ == maxloops)
-			return 0;
+			return -1;
 
 	// wait for the pulse to start
 	while ((*portInputRegister(port) & bit) != stateMask)
 		if (numloops++ == maxloops)
-			return 0;
+			return -1;
 
 	// wait for the pulse to stop
 	while ((*portInputRegister(port) & bit) == stateMask) {

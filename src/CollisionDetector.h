@@ -6,6 +6,7 @@ class CollisionDetector {
 private:
     int SAFE_DISTANCE = 50;
     unsigned long TIME_OUT_DURATION = 1000; //ms
+    long PULSE_TIMEOUT = -1;
 
     int trigger, echo1, echo2, echo3;
     bool detected;
