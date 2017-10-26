@@ -2,6 +2,8 @@
 
 #include "CollisionDetector.h"
 #include "Arduino.h"
+#include "wiring_private.h"
+#include "pins_arduino.h"
 
 CollisionDetector::CollisionDetector(int trigger, int echo1, int echo2, int echo3)
 {
@@ -19,7 +21,7 @@ CollisionDetector::CollisionDetector(int trigger, int echo1, int echo2, int echo
 void CollisionDetector::updateState()
 {
     triggerSensor(trigger);
-    long duration = pulseIn(echo1, HIGH,50000);
+    long duration = this->pulseIn(echo1, HIGH,50000);
 
     #ifdef DEBUG
       Serial.print("Distance: ");
@@ -55,15 +57,11 @@ long CollisionDetector::getDistance(long duration){
 }
 
 
-
-#include "wiring_private.h"
-#include "pins_arduino.h"
-
 /* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
 * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
 * to 3 minutes in length, but must be called at least a few dozen microseconds
 * before the start of the pulse. */
-unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout)
+unsigned long CollisionDetector::pulseIn(uint8_t pin, uint8_t state, unsigned long timeout)
 {
 	// cache the port and bit of the pin in order to speed up the
 	// pulse width measuring loop and achieve finer resolution.  calling
@@ -91,7 +89,7 @@ unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout)
 	// wait for the pulse to stop
 	while ((*portInputRegister(port) & bit) == stateMask) {
 		if (numloops++ == maxloops)
-			return 0;
+			return -1;
 		width++;
 	}
 

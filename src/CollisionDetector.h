@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdint.h"
+
 class CollisionDetector {
 private:
     int SAFE_DISTANCE = 50;
@@ -14,9 +16,9 @@ public:
 
     void updateState();
     bool isDetected();
-    int pulseIn(int pin);
 
 private:
     void triggerSensor(int pin);
     long getDistance(long duration);
+    unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 };
