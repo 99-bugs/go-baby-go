@@ -3,10 +3,10 @@
 
 #define DEBUG true
 
-#include "C:\Users\Thomas\Documents\Arduino\go-baby-go\src\Lights.h"
-#include "C:\Users\Thomas\Documents\Arduino\go-baby-go\src\Button.h"
-#include "C:\Users\Thomas\Documents\Arduino\go-baby-go\src\CollisionDetector.h"
-#include "C:\Users\Thomas\Documents\Arduino\go-baby-go\src\Motor.h"
+#include "src/Lights.h"
+#include "src/Button.h"
+#include "src/CollisionDetector.h"
+#include "src/Motor.h"
 
 const int STEER_LEFT = 12;
 const int STEER_RIGHT = 11;
