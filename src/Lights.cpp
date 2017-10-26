@@ -1,7 +1,4 @@
 #include "Lights.h"
-#include <Adafruit_NeoPixel.h>
-
-Adafruit_NeoPixel strip;
 
 Lights::Lights(int pin)
 {
@@ -17,23 +14,22 @@ Lights::Lights(int pin)
 
 void Lights::showHeadLights()
 {
-  setLightUnit(WHITE, FRONT_R);
-  setLightUnit(WHITE, FRONT_L);
-  setLightUnit(RED, BACK_R);
-  setLightUnit(RED, BACK_L);
+  setLightUnit(WHITE, RIGHT);
+  setLightUnit(WHITE, LEFT);
+  strip.show();
 }
 
 void Lights::showBreakLights()
 {
-  setLightUnit(RED, BACK_R);
-  setLightUnit(RED, BACK_L);
+  setLightUnit(RED, RIGHT);
+  setLightUnit(RED, LEFT);
   strip.show();
 }
 
 void Lights::hideBreakLights()
 {
-  setLightUnit(NO_COLOR, BACK_R);
-  setLightUnit(NO_COLOR, BACK_L);
+  setLightUnit(NO_COLOR, RIGHT);
+  setLightUnit(NO_COLOR, LEFT);
   strip.show();
 }
 

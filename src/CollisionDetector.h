@@ -14,6 +14,7 @@ public:
 
     void updateState();
     bool isDetected();
+    int pulseIn(int pin);
 
 private:
     void triggerSensor(int pin);

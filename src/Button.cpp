@@ -19,7 +19,7 @@ void Button::updateState()
 
 bool Button::isPressed()
 {
-    return leftPressed && rightPressed;
+    return leftPressed || rightPressed;
 }
 
 bool Button::isReleased()
